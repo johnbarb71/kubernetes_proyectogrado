@@ -1,0 +1,56 @@
+###################################
+## SERVICIO PARA LARAVEL RESTAPI ##
+###################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-laravel
+  labels:
+    app: restapi
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: restapi
+    tier: backend
+  type: LoadBalancer
+  #clusterIP: None
+---
+#############################
+## DEPLOYMENT PARA LARAVEL ##
+#############################
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: laravel
+  labels:
+    app: restapi
+spec:
+  selector:
+    matchLabels:
+      app: restapi
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: restapi
+        tier: backend
+    spec:
+      containers:
+      - image: johnbarb71/angular:v1
+        name: laravel
+        env:
+        - name: DB_HOST
+          value: 192.168.117.31
+        ports:
+        - containerPort: 8000
+          name: laravel
+        volumeMounts:
+        - name: laravel-persistent-storage
+          mountPath: /opt
+      volumes:
+      - name: laravel-persistent-storage
+        persistentVolumeClaim:
+          claimName: pvc-laravel   

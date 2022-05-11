@@ -1,0 +1,16 @@
+#######################
+## PV para ANGULAR  ###
+#######################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-angular
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: angular
+  hostPath:
+    path: /home/ec2-user/angular

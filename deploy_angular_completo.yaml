@@ -1,0 +1,52 @@
+##################################
+## SERVICIO PARA ANGULAR RESTAPI##
+##################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-ang
+  labels:
+    app: restapi
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: restapi
+    tier: frontend
+  type: LoadBalancer
+---
+###############################
+## DEPLOYMENT PARA WORDPRESS ##
+###############################
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: angular
+  labels:
+    app: restapi
+spec:
+  selector:
+    matchLabels:
+      app: restapi
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: restapi
+        tier: frontend
+    spec:
+      containers:
+      - image: johnbarb71/angular:v1
+        name: angular
+        ports:
+        - containerPort: 80
+          name: angular
+        volumeMounts:
+        - name: wordpress-persistent-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: wordpress-persistent-storage
+        persistentVolumeClaim:
+          claimName: pvc-angular 

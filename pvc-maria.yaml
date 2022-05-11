@@ -1,0 +1,14 @@
+########################
+## CLAIM PARA MARIADB ##
+########################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mariadb
+spec:
+  storageClassName: mariadb
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

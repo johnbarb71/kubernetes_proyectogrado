@@ -1,0 +1,14 @@
+########################
+## CLAIM PARA LARAVEL ##
+########################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-laravel
+spec:
+  storageClassName: laravel
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

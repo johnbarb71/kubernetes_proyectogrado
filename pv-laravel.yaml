@@ -1,0 +1,16 @@
+#######################
+## PV para LARAVEL  ###
+#######################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-laravel
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: laravel
+  hostPath:
+    path: /home/ec2-user/laravel

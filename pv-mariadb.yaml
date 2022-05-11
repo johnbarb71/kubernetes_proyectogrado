@@ -1,0 +1,16 @@
+#######################
+## PV para MARIADB  ###
+#######################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-mariadb
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: mariadb
+  hostPath:
+    path: /home/ec2-user/mariadb

@@ -1,0 +1,14 @@
+########################
+## CLAIM PARA ANGULAR ##
+########################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-angular
+spec:
+  storageClassName: angular
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
